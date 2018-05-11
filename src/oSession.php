@@ -12,14 +12,15 @@ if (!class_exists(\obray\oObject::class)) die();
 Class oSession
 {
 
-    public function __construct()
+    public function __clone()
     {
         if(\session_start()){
+            $obj = new \stdClass();
             forEach( $_SESSION as $k => $s ){
-                $this->$k = $s;
+                $obj->$k = $s;
             }
             \session_write_close();
-            return $this;
+            return $obj;
         }
         throw new \Exception("Unable to initialize session.",500);
     }
