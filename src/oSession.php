@@ -12,6 +12,16 @@ if (!class_exists(\obray\oObject::class)) die();
 Class oSession
 {
 
+    public function __construct(){
+        if(\session_start()){
+            forEach($_SESSION as $key => $value){
+                $this->$key = $value;
+            }
+            return;
+        }
+        throw new \Exception("Unable to initialize session.",500);
+    }
+
     public function __clone()
     {
         if(\session_start()){
