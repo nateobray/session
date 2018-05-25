@@ -48,8 +48,6 @@ Class oSession
     {
         
         if(\session_start()){
-            print_r($_SESSION);
-            print_r($name.": ".$value."\n");
             $_SESSION[$name] = $value;
             $this->{$name} = $value;
             \session_write_close();
