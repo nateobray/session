@@ -12,25 +12,21 @@ if (!class_exists(\obray\oObject::class)) die();
 Class oSession
 {
 
-    public function __construct(){
+    public function get()
+    {
         if(\session_start()){
-            forEach($_SESSION as $key => $value){
-                $this->$key = $value;
-            }
-            return;
+            $session = $_SESSION;
+            \session_write_close();
+            return $session;
         }
         throw new \Exception("Unable to initialize session.",500);
     }
 
-    public function __clone()
-    {
+    public function destroy(){
         if(\session_start()){
-            $obj = new \stdClass();
-            forEach( $_SESSION as $k => $s ){
-                $obj->$k = $s;
-            }
+            \session_destroy();
             \session_write_close();
-            return $obj;
+            return;
         }
         throw new \Exception("Unable to initialize session.",500);
     }
@@ -50,7 +46,10 @@ Class oSession
 
     public function __set(string $name,$value)
     {
-        if(@\session_start()){
+        
+        if(\session_start()){
+            print_r($_SESSION);
+            print_r($name.": ".$value."\n");
             $_SESSION[$name] = $value;
             $this->{$name} = $value;
             \session_write_close();
