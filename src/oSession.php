@@ -20,7 +20,7 @@ Class oSession
     public function get()
     {
         if(\session_start()){
-            $session = $_SESSION;
+            $session = (object) $_SESSION;
             \session_write_close();
             return $session;
         }
