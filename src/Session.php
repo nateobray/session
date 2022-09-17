@@ -1,15 +1,13 @@
 <?php
-
-namespace obray;
-
-if (!class_exists(\obray\oObject::class)) die();
+namespace obray\sessions;
 
 /**
- * oSession
+ * Session
  *
  * Session Manager
  */
-Class oSession
+
+Class Session
 {
     /**
      * Get returns the entire session array
@@ -117,5 +115,4 @@ Class oSession
         }
         throw new \Exception("Uable to intialize session.",500);
     }
-
 }
